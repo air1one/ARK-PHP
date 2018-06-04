@@ -13,21 +13,15 @@ declare(strict_types=1);
 
 namespace ArkEcosystem\Tests\Ark;
 
-use ArkEcosystem\Ark\Client;
-use ArkEcosystem\Ark\Config;
+use ArkEcosystem\Ark\Builder\TransactionBuilder;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    protected function getClient(string $networkAddress = '1E')
+    protected $transactionBuilder;
+    public function __construct()
     {
-        $config = new Config(
-            'http://167.114.29.33:4002/',
-            '578e820911f24e039733b45e4882b73e301f813a0d2c31330dafda84534ffa23',
-            '1.1.1',
-            $networkAddress
-        );
-
-        return new Client($config);
+        parent::__construct();
+        $this->transactionBuilder = new TransactionBuilder();   
     }
 }

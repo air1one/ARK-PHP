@@ -30,7 +30,7 @@ class TransactionBuilderTest extends TestCase
         $secret = 'this is a top secret passphrase';
 
         // Act...
-        $transaction = $this->getClient()->transactionBuilder->createTransfer($recipientId, $amount, $vendorField, $secret);
+        $transaction = $this->transactionBuilder->createTransfer($recipientId, $amount, $vendorField, $secret);
 
         // Assert...
         $this->assertInstanceOf('stdClass', $transaction);
@@ -48,7 +48,7 @@ class TransactionBuilderTest extends TestCase
         $secondSecret = 'this is a top secret second passphrase';
 
         // Act...
-        $transaction = $this->getClient()->transactionBuilder->createTransfer($recipientId, $amount, $vendorField, $secret, $secondSecret);
+        $transaction = $this->transactionBuilder->createTransfer($recipientId, $amount, $vendorField, $secret, $secondSecret);
 
         // Assert...
         $this->assertInstanceOf('stdClass', $transaction);
@@ -64,7 +64,7 @@ class TransactionBuilderTest extends TestCase
         $name = 'polopolo';
 
         // Act...
-        $transaction = $this->getClient()->transactionBuilder->createDelegate($name, $secret);
+        $transaction = $this->transactionBuilder->createDelegate($name, $secret);
 
         // Assert...
         $this->assertTrue(Crypto::verify($transaction));
@@ -85,7 +85,7 @@ class TransactionBuilderTest extends TestCase
         ];
 
         // Act...
-        $transaction = $this->getClient()->transactionBuilder->createMultiSignature($secret, $secondSecret, $keysgroup, $lifetime, $min);
+        $transaction = $this->transactionBuilder->createMultiSignature($secret, $secondSecret, $keysgroup, $lifetime, $min);
 
         // Assert...
         $this->assertInstanceOf('stdClass', $transaction);
@@ -100,7 +100,7 @@ class TransactionBuilderTest extends TestCase
         $secondSecret = 'second passphrase';
 
         // Act...
-        $transaction = $this->getClient()->transactionBuilder->createSecondSignature($secondSecret, $firstSecret);
+        $transaction = $this->transactionBuilder->createSecondSignature($secondSecret, $firstSecret);
 
         // Assert...
         $this->assertInstanceOf('stdClass', $transaction);
@@ -118,8 +118,7 @@ class TransactionBuilderTest extends TestCase
         $delegate = '034151a3ec46b5670a682b0a63394f863587d1bc97483b1b6c70eb58e7f0aed192';
 
         // Act...
-        $client = $this->getClient();
-        $transaction = $client->transactionBuilder->createVote(['+'.$delegate], $secret, null, $client->config->network);
+        $transaction = $this->transactionBuilder->createVote(['+'.$delegate], $secret, null, null);
 
         // Assert...
         $this->assertInstanceOf('stdClass', $transaction);

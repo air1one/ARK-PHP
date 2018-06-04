@@ -15,6 +15,7 @@ namespace ArkEcosystem\Tests\Ark\Utils;
 
 use ArkEcosystem\Ark\Utils\Crypto;
 use ArkEcosystem\Tests\Ark\TestCase;
+use BitWasp\Bitcoin\Network\NetworkFactory;
 
 /**
  * @coversNothing
@@ -54,9 +55,10 @@ class CryptoTest extends TestCase
     {
         // Arrange...
         $secret = 'this is a top secret passphrase';
+        $network = NetworkFactory::create('17', '00', '00');
 
         // Act...
-        $address = Crypto::getAddress(Crypto::getKeys($secret), $this->getClient('17')->config->network);
+        $address = Crypto::getAddress(Crypto::getKeys($secret), $network);
 
         // Assert...
         $this->assertSame($address, 'AGeYmgbg2LgGxRW2vNNJvQ88PknEJsYizC');
@@ -67,9 +69,10 @@ class CryptoTest extends TestCase
     {
         // Arrange...
         $secret = 'this is a top secret passphrase';
+        $network = NetworkFactory::create('1e', '00', '00');
 
         // Act...
-        $address = Crypto::getAddress(Crypto::getKeys($secret), $this->getClient('1e')->config->network);
+        $address = Crypto::getAddress(Crypto::getKeys($secret), $network);
 
         // Assert...
         $this->assertSame($address, 'D61mfSggzbvQgTUe6JhYKH2doHaqJ3Dyib');
